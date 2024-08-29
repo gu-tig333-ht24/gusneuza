@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'constants/app_constants.dart';
 import 'pages/home_page.dart';
 
 class App extends StatelessWidget {
@@ -8,11 +9,15 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Todos",
+      title: AppConstants.appTitle,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+          backgroundColor: Colors.deepPurpleAccent.shade100,
+        ),
       ),
       home: const HomePage(),
     );

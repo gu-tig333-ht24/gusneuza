@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants/app_constants.dart';
+
 class AddTodoPage extends StatelessWidget {
   const AddTodoPage({super.key});
 
@@ -7,12 +9,10 @@ class AddTodoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text("Todos"),
-        backgroundColor: Colors.deepPurpleAccent.shade100,
+        title: const Text(AppConstants.appTitle),
       ),
       body: ListView(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         children: [
           Column(
             children: [
@@ -49,11 +49,11 @@ class AddTodoPage extends StatelessWidget {
               const SizedBox(height: 20),
               FilledButton(
                 onPressed: () {},
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.add_rounded),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10),
                     Text("ADD"),
                   ],
                 ),
