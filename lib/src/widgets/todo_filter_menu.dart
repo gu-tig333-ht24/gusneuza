@@ -25,22 +25,14 @@ class _TodoFilterMenuState extends State<TodoFilterMenu> {
         setState(() => _selectedFilter = selection);
         widget.onFilterSelected(_selectedFilter);
       },
-      itemBuilder: (BuildContext context) {
-        return [
-          PopupMenuItem<TodoFilter>(
-            value: TodoFilter.all,
-            child: Text(TodoFilter.all.name),
-          ),
-          PopupMenuItem<TodoFilter>(
-            value: TodoFilter.done,
-            child: Text(TodoFilter.done.name),
-          ),
-          PopupMenuItem<TodoFilter>(
-            value: TodoFilter.undone,
-            child: Text(TodoFilter.undone.name),
-          ),
-        ];
-      },
+      itemBuilder: (BuildContext context) => TodoFilter.values
+          .map(
+            (TodoFilter filter) => PopupMenuItem(
+              value: filter,
+              child: Text(filter.name),
+            ),
+          )
+          .toList(),
     );
   }
 }
