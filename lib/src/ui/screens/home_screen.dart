@@ -5,10 +5,10 @@ import '../../core/enums/todo_filter.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/todo_filter_menu.dart';
 import '../widgets/todo_list.dart';
-import 'add_todo_page.dart';
+import 'add_todo_screen.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const AddTodoPage()),
+            MaterialPageRoute(builder: (context) => const AddTodoScreen()),
           );
         },
         child: const Icon(Icons.add_rounded),

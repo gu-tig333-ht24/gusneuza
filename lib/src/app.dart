@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'core/constants/app_constants.dart';
 import 'core/constants/app_theme.dart';
-import 'ui/pages/home_page.dart';
+import 'ui/screens/home_screen.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -13,7 +13,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: AppConstants.appTitle,
       theme: AppTheme.theme,
-      home: const HomePage(),
+      home: const HomeScreen(),
     );
   }
 }

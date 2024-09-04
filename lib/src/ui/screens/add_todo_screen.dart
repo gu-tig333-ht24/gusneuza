@@ -5,8 +5,8 @@ import '../../core/models/todo.dart';
 import '../widgets/add_todo_form.dart';
 import '../widgets/custom_app_bar.dart';
 
-class AddTodoPage extends StatelessWidget {
-  const AddTodoPage({super.key});
+class AddTodoScreen extends StatelessWidget {
+  const AddTodoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
