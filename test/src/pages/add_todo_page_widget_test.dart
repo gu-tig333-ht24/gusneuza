@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:template/src/core/app_constants.dart';
-import 'package:template/src/pages/add_todo_page.dart';
-import 'package:template/src/pages/home_page.dart';
+import 'package:template/src/core/constants/app_constants.dart';
+import 'package:template/src/ui/pages/add_todo_page.dart';
+import 'package:template/src/ui/pages/home_page.dart';
 
 void main() {
   group("AddTodoPage widget tests", () {

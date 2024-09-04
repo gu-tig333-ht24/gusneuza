@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:template/src/enums/todo_filter.dart';
-import 'package:template/src/pages/home_page.dart';
-import 'package:template/src/utils/string_extensions.dart';
-import 'package:template/src/widgets/todo_filter_menu.dart';
+import 'package:template/src/core/enums/todo_filter.dart';
+import 'package:template/src/ui/pages/home_page.dart';
+import 'package:template/src/core/utils/string_extensions.dart';
+import 'package:template/src/ui/widgets/todo_filter_menu.dart';
 
 void main() {
   group("TodoFilterMenu widget tests", () {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:template/src/core/app_constants.dart';
-import 'package:template/src/pages/home_page.dart';
-import 'package:template/src/widgets/todo_filter_menu.dart';
-import 'package:template/src/widgets/todo_list.dart';
+import 'package:template/src/core/constants/app_constants.dart';
+import 'package:template/src/ui/pages/home_page.dart';
+import 'package:template/src/ui/widgets/todo_filter_menu.dart';
+import 'package:template/src/ui/widgets/todo_list.dart';
 
 void main() {
   group("HomePage widget tests", () {

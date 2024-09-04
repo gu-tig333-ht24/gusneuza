@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../core/app_sizes.dart';
-import '../models/todo.dart';
+import '../../core/constants/app_sizes.dart';
+import '../../core/models/todo.dart';
 import 'todo_list_tile.dart';
 
 class TodoList extends StatefulWidget {

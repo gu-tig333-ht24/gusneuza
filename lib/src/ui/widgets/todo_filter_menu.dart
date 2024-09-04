@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../enums/todo_filter.dart';
-import '../utils/string_extensions.dart';
+import '../../core/enums/todo_filter.dart';
+import '../../core/utils/string_extensions.dart';
 
 class TodoFilterMenu extends StatefulWidget {
   const TodoFilterMenu({

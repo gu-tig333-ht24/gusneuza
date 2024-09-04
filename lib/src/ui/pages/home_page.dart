@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../core/app_sizes.dart';
-import '../enums/todo_filter.dart';
+import '../../core/constants/app_sizes.dart';
+import '../../core/enums/todo_filter.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/todo_filter_menu.dart';
 import '../widgets/todo_list.dart';

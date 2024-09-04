@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:template/src/models/todo.dart';
+import 'package:template/src/core/models/todo.dart';
 
 void main() {
   group("Todo class unit tests", () {
