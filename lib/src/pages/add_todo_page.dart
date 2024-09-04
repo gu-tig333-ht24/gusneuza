@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../constants/app_constants.dart';
+import '../core/app_sizes.dart';
+import '../models/todo.dart';
+import '../widgets/add_todo_form.dart';
+import '../widgets/custom_app_bar.dart';
 
 class AddTodoPage extends StatelessWidget {
   const AddTodoPage({super.key});
@@ -8,59 +11,21 @@ class AddTodoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(AppConstants.appTitle),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(20.0),
-        children: [
-          Column(
-            children: [
-              TextField(
-                maxLines: 1,
-                cursorColor: Colors.deepPurpleAccent,
-                textInputAction: TextInputAction.done,
-                decoration: InputDecoration(
-                  hintText: "What are you going to do?",
-                  // hintStyle: TextStyle(color: Colors.grey),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      width: 1.2,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      color: Colors.grey,
-                      width: 1.2,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      color: Colors.deepPurpleAccent,
-                      width: 1.2,
-                    ),
-                  ),
-                ),
+      appBar: const CustomAppBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(AppSizes.s20),
+        child: AddTodoForm(
+          onValidSubmit: (String title) {
+            // TODO: save todo
+            final todo = Todo(id: "", title: title);
+
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Todo added."),
               ),
-              const SizedBox(height: 20),
-              FilledButton(
-                onPressed: () {},
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.add_rounded),
-                    SizedBox(width: 10),
-                    Text("ADD"),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
+            );
+          },
+        ),
       ),
     );
   }

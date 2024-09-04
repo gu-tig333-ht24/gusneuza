@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'constants/app_constants.dart';
+import 'core/app_constants.dart';
+import 'core/app_theme.dart';
 import 'pages/home_page.dart';
 
 class App extends StatelessWidget {
@@ -9,16 +10,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: AppConstants.appTitle,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        appBarTheme: AppBarTheme(
-          centerTitle: true,
-          backgroundColor: Colors.deepPurpleAccent.shade100,
-        ),
-      ),
+      title: AppConstants.appTitle,
+      theme: AppTheme.theme,
       home: const HomePage(),
     );
   }

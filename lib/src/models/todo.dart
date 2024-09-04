@@ -5,6 +5,18 @@ class Todo {
     this.done = false,
   });
 
+  Todo copyWith({
+    String? id,
+    String? title,
+    bool? done,
+  }) {
+    return Todo(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      done: done ?? this.done,
+    );
+  }
+
   final String id;
   final String title;
   final bool done;

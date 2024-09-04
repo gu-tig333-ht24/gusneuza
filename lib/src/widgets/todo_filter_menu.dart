@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../enums/todo_filter.dart';
+import '../utils/string_extensions.dart';
 
 class TodoFilterMenu extends StatefulWidget {
   const TodoFilterMenu({
@@ -29,7 +30,7 @@ class _TodoFilterMenuState extends State<TodoFilterMenu> {
           .map(
             (TodoFilter filter) => PopupMenuItem(
               value: filter,
-              child: Text(filter.name),
+              child: Text(filter.name.capitalized),
             ),
           )
           .toList(),

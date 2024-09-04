@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../constants/app_constants.dart';
+import '../core/app_sizes.dart';
 import '../enums/todo_filter.dart';
+import '../widgets/custom_app_bar.dart';
 import '../widgets/todo_filter_menu.dart';
 import '../widgets/todo_list.dart';
 import 'add_todo_page.dart';
@@ -12,13 +13,15 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: CustomAppBar(
         actions: [
-          TodoFilterMenu(
-            onFilterSelected: (TodoFilter newSelection) {},
-          ),
+          Padding(
+            padding: const EdgeInsets.only(right: AppSizes.s10),
+            child: TodoFilterMenu(
+              onFilterSelected: (TodoFilter newSelection) {},
+            ),
+          )
         ],
-        title: const Text(AppConstants.appTitle),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
