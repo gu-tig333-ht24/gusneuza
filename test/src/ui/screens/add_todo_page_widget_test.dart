@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:template/src/core/constants/app_constants.dart';
-import 'package:template/src/ui/pages/add_todo_page.dart';
-import 'package:template/src/ui/pages/home_page.dart';
+import 'package:template/src/ui/screens/add_todo_screen.dart';
+import 'package:template/src/ui/screens/home_screen.dart';
 
 void main() {
   group("AddTodoPage widget tests", () {
     Future<void> setUpAddTodoPage(WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: HomePage(),
+          home: HomeScreen(),
         ),
       );
 
@@ -28,7 +28,7 @@ void main() {
         await setUpAddTodoPage(tester);
 
         // Assert
-        expect(find.byType(AddTodoPage), findsOneWidget);
+        expect(find.byType(AddTodoScreen), findsOneWidget);
       },
     );
 
