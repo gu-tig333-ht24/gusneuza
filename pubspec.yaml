@@ -21,3 +21,15 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  fonts:
+    - family: SpaceMono
+      fonts:
+        - asset: assets/fonts/space_mono/SpaceMono-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/space_mono/SpaceMono-BoldItalic.ttf
+          style: italic
+          weight: 700
+        - asset: assets/fonts/space_mono/SpaceMono-Italic.ttf
+          style: italic
+        - asset: assets/fonts/space_mono/SpaceMono-Regular.ttf
