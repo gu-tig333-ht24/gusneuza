@@ -5,6 +5,7 @@ class AppTheme {
 
   static ThemeData theme = ThemeData.light().copyWith(
     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    textTheme: Typography().black.apply(fontFamily: "SpaceMono"),
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.deepPurpleAccent.shade100,
       centerTitle: true,
