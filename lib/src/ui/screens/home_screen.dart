@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
+
 import '../../core/constants/app_sizes.dart';
 import '../../core/enums/todo_filter.dart';
+import '../state/todos_provider.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/todo_filter_menu.dart';
 import '../widgets/todo_list.dart';
@@ -18,7 +21,10 @@ class HomeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: AppSizes.s10),
             child: TodoFilterMenu(
-              onFilterSelected: (TodoFilter newSelection) {},
+              onFilterSelected: (TodoFilter newSelection) {
+                Provider.of<TodosProvider>(context, listen: false)
+                    .changeFilter(newSelection);
+              },
             ),
           )
         ],
