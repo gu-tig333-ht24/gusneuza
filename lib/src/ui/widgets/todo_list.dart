@@ -28,7 +28,7 @@ class _TodoListState extends State<TodoList> {
           return TodoListTile(
             todo: todo,
             onToggle: () => provider.toggle(todo),
-            onDelete: () => provider.delete(todo),
+            onDelete: () => provider.remove(todo),
           );
         },
         separatorBuilder: (BuildContext context, int index) {
