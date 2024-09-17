@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:provider/provider.dart';
+
 import 'package:template/src/core/enums/todo_filter.dart';
 import 'package:template/src/core/utils/string_extensions.dart';
 import 'package:template/src/ui/screens/home_screen.dart';
+import 'package:template/src/ui/state/todos_provider.dart';
 import 'package:template/src/ui/widgets/todo_filter_menu.dart';
 
 void main() {
   group("TodoFilterMenu widget tests", () {
     Future<void> setUpHomePage(WidgetTester tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: HomeScreen(),
+        ChangeNotifierProvider(
+          create: (_) => TodosProvider(),
+          child: const MaterialApp(
+            home: HomeScreen(),
+          ),
         ),
       );
     }
@@ -36,23 +42,13 @@ void main() {
       },
     );
 
-    testWidgets(
-        "TodoFilterMenu widget onFilterSelected callback works correctly",
+    testWidgets("Updates TodoFilter when selecting 'done' from TodoFilterMenu",
         (WidgetTester tester) async {
       // Arrange
-      TodoFilter? selectedFilter;
-
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: TodoFilterMenu(
-              onFilterSelected: (TodoFilter? newSelection) {
-                selectedFilter = newSelection;
-              },
-            ),
-          ),
-        ),
-      );
+      await setUpHomePage(tester);
+      final todosProvider = Provider.of<TodosProvider>(
+          tester.element(find.byType(HomeScreen)),
+          listen: false);
 
       // Act
       final popupMenuButton = find.byType(PopupMenuButton<TodoFilter>);
@@ -69,7 +65,8 @@ void main() {
       await tester.tap(secondItemFinder);
       await tester.pumpAndSettle();
 
-      expect(selectedFilter, TodoFilter.done);
+      // Assert
+      expect(todosProvider.todoFilter, TodoFilter.done);
     });
   });
 }
