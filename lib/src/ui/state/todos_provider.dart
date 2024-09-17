@@ -6,10 +6,13 @@ import '../../core/enums/todo_filter.dart';
 import '../../core/models/todo.dart';
 
 class TodosProvider extends ChangeNotifier {
-  // final List<Todo> _todos = [];
-  final List<Todo> _todos = TodoExtensions.samples;
+  final List<Todo> _todos = [];
+
+  // final List<Todo> _todos = TodoExtensions.samples;
 
   TodoFilter _todoFilter = TodoFilter.all;
+
+  TodoFilter get todoFilter => _todoFilter;
 
   UnmodifiableListView<Todo> get todos => switch (_todoFilter) {
         TodoFilter.all => UnmodifiableListView(_todos),
@@ -35,7 +38,7 @@ class TodosProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void delete(Todo todo) {
+  void remove(Todo todo) {
     _todos.remove(todo);
     notifyListeners();
   }
