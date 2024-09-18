@@ -8,8 +8,6 @@ import '../../core/models/todo.dart';
 class TodosProvider extends ChangeNotifier {
   final List<Todo> _todos = [];
 
-  // final List<Todo> _todos = TodoExtensions.samples;
-
   TodoFilter _todoFilter = TodoFilter.all;
 
   TodoFilter get todoFilter => _todoFilter;
