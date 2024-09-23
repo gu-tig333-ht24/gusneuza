@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:provider/provider.dart';
+
 import 'package:template/src/core/constants/app_constants.dart';
 import 'package:template/src/ui/screens/home_screen.dart';
+import 'package:template/src/ui/state/todos_provider.dart';
 import 'package:template/src/ui/widgets/todo_filter_menu.dart';
 import 'package:template/src/ui/widgets/todo_list.dart';
 
@@ -10,8 +13,11 @@ void main() {
   group("HomePage widget tests", () {
     Future<void> setUpHomePage(WidgetTester tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: HomeScreen(),
+        ChangeNotifierProvider(
+          create: (_) => TodosProvider(),
+          child: const MaterialApp(
+            home: HomeScreen(),
+          ),
         ),
       );
     }
