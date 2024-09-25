@@ -1,54 +1,52 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:template/src/core/enums/todo_filter.dart';
-import 'package:template/src/core/models/todo.dart';
 import 'package:template/src/ui/state/todos_provider.dart';
+
+import '../../../mocks/mock_todo_repository.dart';
 
 void main() {
   group("TodoProvider unit tests", () {
-    test("TodosProvider should have zero items initially", () {
-      // Arrange
-      final todosProvider = TodosProvider();
+    late TodosProvider todosProvider;
 
+    setUp(() {
+      // Arrange
+      todosProvider = TodosProvider(repository: MockTodoRepository());
+    });
+
+    test("TodosProvider should have zero items initially", () {
       // Assert
       expect(todosProvider.itemCount, 0);
     });
 
-    test("When a Todo is added, itemCount should increment", () {
-      // Arrange
-      final todosProvider = TodosProvider();
-
+    test("When a Todo is added, itemCount should increment", () async {
       // Act
-      todosProvider.add(
-        Todo(id: "1", title: "Climb Mount Everest"),
-      );
+      await todosProvider.addTodo("Climb Mount Everest");
 
       // Assert
       expect(todosProvider.itemCount, 1);
     });
 
-    test("Toggling a todo has correct 'done' value", () {
+    test("Toggling a todo has correct 'done' value", () async {
       // Arrange
-      final todosProvider = TodosProvider();
-      final todo = Todo(id: "1", title: "Climb Mount Everest");
-      todosProvider.add(todo);
+      await todosProvider.addTodo("Climb Mount Everest");
+      final todo = todosProvider.todos.first;
 
       // Act
-      todosProvider.toggle(todo);
+      await todosProvider.toggleTodo(todo);
       final updatedTodo = todosProvider.todos.first;
 
       // Assert
       expect(updatedTodo.done, true);
     });
 
-    test("Removing a Todo should result in an empty TodosProvider", () {
+    test("Removing a Todo should result in an empty TodosProvider", () async {
       // Arrange
-      final todosProvider = TodosProvider();
-      final todo = Todo(id: "1", title: "Climb Mount Everest");
-      todosProvider.add(todo);
+      await todosProvider.addTodo("Climb Mount Everest");
+      final todo = todosProvider.todos.first;
 
       // Act
-      todosProvider.remove(todo);
+      await todosProvider.removeTodo(todo);
 
       // Assert
       expect(todosProvider.itemCount, 0);
@@ -56,34 +54,33 @@ void main() {
 
     test("'todoFilter' should be updated after calling changeFilter", () {
       // Arrange
-      final todosProvider = TodosProvider();
       const expectedFilter = TodoFilter.undone;
 
       // Act
-      todosProvider.changeFilter(expectedFilter);
+      todosProvider.changeTodoFilter(expectedFilter);
 
       // Assert
       expect(todosProvider.todoFilter, expectedFilter);
     });
 
-    test("'itemCount' reflects correct count after changing TodoFilter", () {
+    test("'itemCount' reflects correct count after changing TodoFilter",
+        () async {
       // Arrange
       const itemCountToFilter = {
         3: TodoFilter.all,
         2: TodoFilter.done,
         1: TodoFilter.undone,
       };
-      final todosProvider = TodosProvider();
-      final sampleTodos = [
-        Todo(id: "1", title: "Yes", done: true),
-        Todo(id: "2", title: "Maybe", done: true),
-        Todo(id: "3", title: "No"),
-      ];
-      sampleTodos.forEach(todosProvider.add);
+      for (var title in ["Yes", "Maybe", "No"]) {
+        await todosProvider.addTodo(title);
+      }
+      final todos = todosProvider.todos;
+      todosProvider.toggleTodo(todos[0]);
+      todosProvider.toggleTodo(todos[1]);
 
       itemCountToFilter.forEach((int expectedItemCount, TodoFilter filter) {
         // Act
-        todosProvider.changeFilter(filter);
+        todosProvider.changeTodoFilter(filter);
 
         // Assert
         expect(todosProvider.itemCount, expectedItemCount);
