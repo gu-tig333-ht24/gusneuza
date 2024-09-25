@@ -3,14 +3,19 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 
 import '../../core/enums/todo_filter.dart';
+import '../../core/interfaces/todo_repository.dart';
 import '../../core/models/todo.dart';
 
 class TodosProvider extends ChangeNotifier {
-  final List<Todo> _todos = [];
+  TodosProvider({required TodoRepository repository})
+      : _repository = repository;
+  final TodoRepository _repository;
+
+  bool _isLoading = false;
+
+  List<Todo> _todos = [];
 
   TodoFilter _todoFilter = TodoFilter.all;
-
-  TodoFilter get todoFilter => _todoFilter;
 
   UnmodifiableListView<Todo> get todos => switch (_todoFilter) {
         TodoFilter.all => UnmodifiableListView(_todos),
@@ -20,24 +25,59 @@ class TodosProvider extends ChangeNotifier {
 
   int get itemCount => todos.length;
 
-  void changeFilter(TodoFilter todoFilter) {
+  bool get isLoading => _isLoading;
+
+  TodoFilter get todoFilter => _todoFilter;
+
+  Future<void> fetchTodos() async {
+    _isLoading = true;
+    notifyListeners();
+
+    _todos = await _repository.fetchTodos();
+
+    _isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> addTodo(String title) async {
+    _isLoading = true;
+    notifyListeners();
+
+    _todos = await _repository.createTodo(title);
+
+    _isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> toggleTodo(Todo todo) async {
+    _isLoading = true;
+    notifyListeners();
+
+    if (await _repository.updateTodo(todo)) {
+      int index = _todos.indexWhere((t) => t.id == todo.id);
+      if (index != -1) {
+        _todos[index] = todo.copyWith(done: !todo.done);
+      }
+    }
+
+    _isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> removeTodo(Todo todo) async {
+    _isLoading = true;
+    notifyListeners();
+
+    if (await _repository.removeTodo(todo)) {
+      _todos.remove(todo);
+    }
+
+    _isLoading = false;
+    notifyListeners();
+  }
+
+  void changeTodoFilter(TodoFilter todoFilter) {
     _todoFilter = todoFilter;
-    notifyListeners();
-  }
-
-  void add(Todo todo) {
-    _todos.add(todo);
-    notifyListeners();
-  }
-
-  void toggle(Todo todo) {
-    int index = _todos.indexOf(todo);
-    _todos[index] = todo.copyWith(done: !todo.done);
-    notifyListeners();
-  }
-
-  void remove(Todo todo) {
-    _todos.remove(todo);
     notifyListeners();
   }
 }

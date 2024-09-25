@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/constants/app_sizes.dart';
-import '../../core/models/todo.dart';
 import '../state/todos_provider.dart';
 import 'todo_list_tile.dart';
 
@@ -15,20 +14,43 @@ class TodoList extends StatefulWidget {
 }
 
 class _TodoListState extends State<TodoList> {
-  final List<Todo> todoItems = TodoExtensions.samples;
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<TodosProvider>(context, listen: false).fetchTodos();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, TodosProvider provider, _) {
+      if (provider.isLoading) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+
+      final todos = provider.todos;
+      if (todos.isEmpty) {
+        return const Center(
+          child: Text(
+            "No todos yet.",
+            style: TextStyle(fontSize: 24),
+          ),
+        );
+      }
+
       return ListView.separated(
         padding: const EdgeInsets.all(AppSizes.s10),
-        itemCount: provider.itemCount,
+        itemCount: todos.length,
         itemBuilder: (BuildContext context, int index) {
-          final todo = provider.todos[index];
+          final todo = todos[index];
           return TodoListTile(
             todo: todo,
-            onToggle: () => provider.toggle(todo),
-            onDelete: () => provider.remove(todo),
+            onToggle: () => provider.toggleTodo(todo),
+            onDelete: () => provider.removeTodo(todo),
           );
         },
         separatorBuilder: (BuildContext context, int index) {
