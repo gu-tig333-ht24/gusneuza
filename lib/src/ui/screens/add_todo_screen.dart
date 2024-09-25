@@ -18,7 +18,6 @@ class AddTodoScreen extends StatelessWidget {
         padding: const EdgeInsets.all(AppSizes.s20),
         child: AddTodoForm(
           onValidSubmit: (String title) {
-            // TODO: async
             Provider.of<TodosProvider>(context, listen: false).addTodo(title);
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(

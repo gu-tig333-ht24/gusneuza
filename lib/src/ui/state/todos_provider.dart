@@ -11,11 +11,15 @@ class TodosProvider extends ChangeNotifier {
       : _repository = repository;
   final TodoRepository _repository;
 
+  // region Fields
+
   bool _isLoading = false;
-
   List<Todo> _todos = [];
-
   TodoFilter _todoFilter = TodoFilter.all;
+
+  // endregion Fields
+
+  // region Properties
 
   UnmodifiableListView<Todo> get todos => switch (_todoFilter) {
         TodoFilter.all => UnmodifiableListView(_todos),
@@ -28,6 +32,10 @@ class TodosProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   TodoFilter get todoFilter => _todoFilter;
+
+  // endregion Properties
+
+  // region Methods
 
   Future<void> fetchTodos() async {
     _isLoading = true;
@@ -80,4 +88,6 @@ class TodosProvider extends ChangeNotifier {
     _todoFilter = todoFilter;
     notifyListeners();
   }
+
+  // endregion Methods
 }
