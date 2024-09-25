@@ -16,11 +16,19 @@ dependencies:
   # State Management
   provider: ^6.1.2
 
+  # Networking
+  http: ^1.2.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^4.0.0
+
+  # Library for creating mock objects in Dart tests
+  mocktail: ^1.0.4
+  # Generate unique ids for testing purposes
+  uuid: ^4.4.2
 
 flutter:
   uses-material-design: true
