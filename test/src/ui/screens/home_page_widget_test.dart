@@ -9,12 +9,21 @@ import 'package:template/src/ui/state/todos_provider.dart';
 import 'package:template/src/ui/widgets/todo_filter_menu.dart';
 import 'package:template/src/ui/widgets/todo_list.dart';
 
+import '../../../mocks/mock_todo_repository.dart';
+
 void main() {
   group("HomePage widget tests", () {
+    late TodosProvider todosProvider;
+
+    setUp(() {
+      // Arrange
+      todosProvider = TodosProvider(repository: MockTodoRepository());
+    });
+
     Future<void> setUpHomePage(WidgetTester tester) async {
       await tester.pumpWidget(
         ChangeNotifierProvider(
-          create: (_) => TodosProvider(),
+          create: (_) => todosProvider,
           child: const MaterialApp(
             home: HomeScreen(),
           ),

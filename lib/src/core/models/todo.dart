@@ -5,6 +5,46 @@ class Todo {
     this.done = false,
   });
 
+  factory Todo.fromJson(Map<String, dynamic> json) {
+    try {
+      if (json.containsKey("id") &&
+          json.containsKey("title") &&
+          json.containsKey("done")) {
+        final id = json["id"];
+        final title = json["title"];
+
+        // NOTE: 'done' is sometimes a bool and other times a String.
+        //       Thus it must be handled:
+        final dynamic doneValue = json["done"];
+        bool done;
+
+        if (doneValue is bool) {
+          done = doneValue;
+        } else if (doneValue is String) {
+          done = bool.tryParse(doneValue, caseSensitive: false) ?? false;
+        } else {
+          throw const FormatException(
+              "Todo.fromJson() error: Invalid 'done' type.");
+        }
+
+        if (id is String && title is String) {
+          return Todo(id: id, title: title, done: done);
+        } else {
+          throw const FormatException(
+              "Todo.fromJson() error: Invalid types for 'id' or 'title'.");
+        }
+      } else {
+        throw const FormatException("Todo.fromJson() error: Missing keys.");
+      }
+    } catch (e) {
+      throw FormatException("Todo.fromJson() error: ${e.toString()}");
+    }
+  }
+
+  final String id;
+  final String title;
+  final bool done;
+
   Todo copyWith({
     String? id,
     String? title,
@@ -16,21 +56,4 @@ class Todo {
       done: done ?? this.done,
     );
   }
-
-  final String id;
-  final String title;
-  final bool done;
-}
-
-extension TodoExtensions on Todo {
-  static List<Todo> samples = [
-    Todo(id: "1", title: "Write a book"),
-    Todo(id: "2", title: "Do homework"),
-    Todo(id: "3", title: "Tidy room", done: true),
-    Todo(id: "4", title: "Watch TV"),
-    Todo(id: "5", title: "Nap"),
-    Todo(id: "6", title: "Shop groceries"),
-    Todo(id: "7", title: "Have fun"),
-    Todo(id: "8", title: "Meditate"),
-  ];
 }

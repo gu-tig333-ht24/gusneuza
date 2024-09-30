@@ -8,12 +8,21 @@ import 'package:template/src/ui/screens/add_todo_screen.dart';
 import 'package:template/src/ui/screens/home_screen.dart';
 import 'package:template/src/ui/state/todos_provider.dart';
 
+import '../../../mocks/mock_todo_repository.dart';
+
 void main() {
   group("AddTodoPage widget tests", () {
+    late TodosProvider todosProvider;
+
+    setUp(() {
+      // Arrange
+      todosProvider = TodosProvider(repository: MockTodoRepository());
+    });
+
     Future<void> setUpAddTodoPage(WidgetTester tester) async {
       await tester.pumpWidget(
         ChangeNotifierProvider(
-          create: (_) => TodosProvider(),
+          create: (_) => todosProvider,
           child: const MaterialApp(
             home: HomeScreen(),
           ),

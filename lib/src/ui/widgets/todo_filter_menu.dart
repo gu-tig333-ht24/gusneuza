@@ -14,7 +14,7 @@ class TodoFilterMenu extends StatelessWidget {
     return Consumer(builder: (context, TodosProvider provider, _) {
       return PopupMenuButton<TodoFilter>(
         initialValue: provider.todoFilter,
-        onSelected: provider.changeFilter,
+        onSelected: provider.changeTodoFilter,
         itemBuilder: (BuildContext context) => TodoFilter.values
             .map(
               (TodoFilter filter) => PopupMenuItem(
